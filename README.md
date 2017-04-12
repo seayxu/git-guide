@@ -28,15 +28,16 @@ git init
 
 # 仓库克隆（clone）
 ```
-git clone <remote_repo_uri>
+git clone <remote_repo_url>
 # 指定克隆的目录
-git clone <remote_repo_uri> <dir>
+git clone <remote_repo_url> <dir>
 ```
 
 # 远程仓库（remote）
 一般的默认 `remote_name` 为 `origin`。
 
 - 查看
+
 ```
 # 查看远程主机
 git remote
@@ -49,21 +50,25 @@ git remote show <remote_name>
 ```
 
 - 添加远程主机
+
 ```
-git remote add <remote_name> <remote_repo_uri>
+git remote add <remote_name> <remote_repo_url>
 ```
 
 - 删除远程主机
+
 ```
 git remote rm <remote_name>
 ```
 
 - 重命名远程主机名称
+
 ```
 git remote rename <remote_name> <remote_name_new>
 ```
 
 # 添加至暂存区（add）
+
 ```
 git add .
 git add -A
@@ -73,27 +78,32 @@ git add . -f
 ```
 
 # 查看状态（status）
+
 ```
 git status
 ```
 
 # 提交修改（commit）
+
 ```
 git commit -m "提交的描述文字"
 ```
 
 # 查看历史提交记录（log）
+
 ```
 git log
 ```
 
 # 查看命令历史（reflog）
+
 ```
 git reflog
 ```
 
 # 版本回退（reset）
 在 Git 中 用 `HEAD` 表示当前版本，`HEAD^`表示上一个版本，`HEAD^^`表示上上一个版本，依次类推。由于当退回版本过早这种表示方法不方法，于是就有了简便的写法：`HEAD~回退版本值`。例如：倒数第10次版本就是`HEAD~10`。
+
 ```
 # 回退到上次版本
 git reset --hard HEAD^
@@ -109,26 +119,31 @@ git reset --hard commit_id
 # 分支操作（branch）
 
 - 创建分支
+
 ```
 git branch <branch-name>
 ```
 
 - 重命名本地分支
+
 ```
 git branch -m <old-branch-name> <new-branch-name>
 ```
 
 - 分支切换
+
 ```
 git checkout <branch-name>
 ```
 
 - 创建分支并切换到该分支
+
 ```
 git checkout -d <branch-name>
 ```
 
 - 删除本地分支：
+
 ```
 git branch -d/-D <branch-name>
 # -d：删除
@@ -136,6 +151,7 @@ git branch -d/-D <branch-name>
 ```
 
 - 查看所有分支
+
 ```
 git branch -a
 ```
@@ -143,6 +159,7 @@ git branch -a
 # 标签管理（tag）
 
 - 查看本地所有标签
+
 ```
 git tag
 ```
@@ -160,21 +177,23 @@ git tag <tag-name> [sha-1]
 ```
 
 - 删除本地tag
+
 ```
 git tag -d <tag-name>
 ```
 
 # 取回（fetch）
+
 ```
 # 将更新全部取回本地
-git fetch <remote_repo_uri>
+git fetch [<remote_repo> | <remote_repo_url>]
 
 # 将指定分支更新取回本地
-git fetch <remote_repo_uri> <remote-branch-name>
+git fetch [<remote_repo> | <remote_repo_url>] <remote-branch-name>
 ```
 
 # 拉取（pull）
-相当于 *pull & merge*两个操作。
+相当于 *pull & merge* 两个操作。
 
 ```
 # 拉取远程分支到当前分支
@@ -188,6 +207,7 @@ git pull origin <remote-branch-name>:<local-branch-name>
 
 ## 分支（branch）
 - 推送本地分支：
+
 ```
 # 推送本地分支至远程仓库
 git push <remote> <local-branch-name>
@@ -197,11 +217,13 @@ git push <remote> <local-branch-name>:<remote-branch-name>
 ```
 
 - 查看远程分支
+
 ```
 git branch -r
 ```
 
 - 删除远程分支：
+
 ```
 git push origin --delete <branch-name>
 
@@ -210,6 +232,7 @@ git push origin :<branch-name>
 ```
 
 - 删除不存在对应远程分支的本地分支：
+
 ```
 git remote prune origin
 git fetch -p
@@ -217,16 +240,19 @@ git fetch -p
 
 ## 标签（tag）
 - 推送本地所有标签到远程仓库
+
 ```
 git push --tags
 ```
 
 - 获取远程标签
+
 ```
 git fetch origin tag <tag-name>
 ```
 
 - 删除远程标签
+
 ```
 git push origin --delete tag <tag-name>
 
@@ -238,7 +264,7 @@ git push origin :refs/tags/<tag-name>
 
 从其它分支提取文件
 ```
-git checkout <branch-branch> -- <file name>
+git checkout <branch-name> -- <file name>
 ```
 
 从历史版本提取文件
@@ -248,7 +274,9 @@ git checkout -- <file name>
 ```
 
 # 合并(merge)
+
 ## 1.本仓库内
+
 ```
 git checkout <base-on-branch>
 git merge <be-merge-branch-name>
@@ -260,12 +288,14 @@ git push origin <base-on-branch>
 ## 2.非本仓库内
 
 **第一步: 创建并切换一个新分支，然后拉取要合并的分支。**
+
 ```
 git checkout -b <new-branch-name> <base-on-branch>
 git pull <[remote-http[s] | ssh-url]> <merge-branch-name>
 ```
 
 **第二步: 本地执行合并操作，然后提交合并[推送至远程仓库]。**
+
 ```
 git checkout <base-on-branch>
 git merge --no-ff <new-branch-name>
